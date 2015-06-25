@@ -5,8 +5,11 @@
 @section scripts
 {
     <script type="text/javascript">
-        $('document').ready(function() {
-            d3.json('api2/values', function(error, json) {
+        $('document').ready(function () {
+            var data;
+
+            d3.json('api2/people', function (error, json) {
+                data = json;
                 alert(json);
             });
         });
