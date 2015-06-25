@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "D3mo", "D3mo\D3mo.fsproj", "{7CCCB68A-807C-48C5-A2A1-CC794FE84B3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{06D6068E-5AAC-4B2C-A3FB-766FAAC91228}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CCCB68A-807C-48C5-A2A1-CC794FE84B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCCB68A-807C-48C5-A2A1-CC794FE84B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCCB68A-807C-48C5-A2A1-CC794FE84B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCCB68A-807C-48C5-A2A1-CC794FE84B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+﻿<div class="jumbotron">
+    <h1>Demo 1</h1>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('document').ready(function() {
+            d3.json('api2/values', function(error, json) {
+                alert(json);
+            });
+        });
+    </script>
+}
