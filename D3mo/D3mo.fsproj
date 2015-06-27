@@ -8,7 +8,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7cccb68a-807c-48c5-a2a1-cc794fe84b3b</ProjectGuid>
-    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349C5851-65DF-11DA-9384-00065B846F21};{F2A71F9B-5D33-465A-A702-920D77279786}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{F2A71F9B-5D33-465A-A702-920D77279786}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <RootNamespace>D3mo</RootNamespace>
@@ -130,6 +130,7 @@
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <Compile Include="Controllers\HomeController.fs" />
     <Compile Include="Controllers\ValuesController.fs" />
+    <Compile Include="Controllers\DemoSelectionController.fs" />
     <Compile Include="Controllers\Demo01Controller.fs" />
     <Compile Include="Controllers\PeopleController.fs" />
     <Content Include="Views\Web.config" />
@@ -145,6 +146,8 @@
     </Compile>
     <Content Include="packages.config" />
     <Content Include="readme.txt" />
+    <Content Include="Views\DemoSelection\Index.cshtml" />
+    <Content Include="Views\DemoSelectAll\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">

@@ -1,0 +1,73 @@
+﻿<div class="page-header">
+    <h1>d3.selectAll(selector) <small>Selects all elements that match the specified selector</small></h1>
+</div>
+
+
+
+<div class="row">
+    <h1 id="first-set">
+        <span class="label label-default">Alpha</span>
+        <span class="label label-default scruffy">Bravo</span>
+        <span class="label label-default scruffy">Charlie</span>
+        <span class="label label-default scruffy">Delta</span>
+        <span class="label label-default">Echo</span>
+        <span class="label label-default">Foxtrot</span>
+        <span class="label label-default">Golf</span>
+    </h1>
+    <h1 id="second-set">
+        <span class="label label-default">Alpha</span>
+        <span class="label label-default scruffy">Bravo</span>
+        <span class="label label-default scruffy">Charlie</span>
+        <span class="label label-default scruffy">Delta</span>
+        <span class="label label-default">Echo</span>
+        <span class="label label-default">Foxtrot</span>
+        <span class="label label-default">Golf</span>
+    </h1>
+    <h1 id ="third-set">
+        <span class="label label-default">Alpha</span>
+        <span class="label label-default scruffy">Bravo</span>
+        <span class="label label-default scruffy">Charlie</span>
+        <span class="label label-default scruffy">Delta</span>
+        <span class="label label-default">Echo</span>
+        <span class="label label-default">Foxtrot</span>
+        <span class="label label-default">Golf</span>
+    </h1>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function containsLetter(letter, text) {
+            return text.indexOf(letter) !== -1;
+        }
+
+        $('document').ready(function () {
+
+            /*
+             * Mark every label as success
+             */
+            d3
+                .select('#first-set')
+                .selectAll('span')
+                .classed('label-success', true);
+
+            /*
+             * Mark all scruffy labels as danger
+             */
+            d3
+                .select('#second-set')
+                .selectAll('span.scruffy')
+                .classed('label-danger', true);
+
+            /*
+             * Mark every that contains 'o' as primary
+             */
+            d3
+                .select('#third-set')
+                .selectAll('span')
+                .classed('label-info', function() {
+                    return containsLetter('o', this.textContent);
+                });
+        });
+    </script>
+}

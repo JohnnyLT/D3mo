@@ -10,7 +10,6 @@ type Person = {
     Last : string
 }
 
-
 /// Retrieves values.
 [<RoutePrefix("api2/people")>]
 type PeopleController() =

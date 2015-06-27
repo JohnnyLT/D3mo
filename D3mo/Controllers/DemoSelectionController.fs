@@ -7,7 +7,14 @@ open System.Web
 open System.Web.Mvc
 open System.Web.Mvc.Ajax
 
-type Demo01Controller() =
+type DemoSelectionController() =
+
+    inherit Controller()
+
+    member this.Index () = this.View()
+
+    
+type DemoSelectAllController() =
 
     inherit Controller()
 

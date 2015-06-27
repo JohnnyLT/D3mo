@@ -1,0 +1,28 @@
+﻿<div class="jumbotron">
+    <h2>D3 Selections</h2>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function buildSimpleList(data, mapDatum, columnClass) {
+            columnClass = columnClass || 'col-xs-4';
+
+            d3
+                .select('#list-area')
+                .append('div')
+                .text('Section')
+                .classed(columnClass, true)
+                .append('ul')
+                .selectAll('li')
+                .data(data)
+                .enter()
+                .append('li')
+                .html(mapDatum);
+        }
+
+        $('document').ready(function() {
+
+        });
+    </script>
+}

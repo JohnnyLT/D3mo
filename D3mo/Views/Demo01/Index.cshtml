@@ -1,33 +1,43 @@
 ﻿<div class="jumbotron">
-    <h4>Demo 1</h4>
+    <h2>D3 Selections</h2>
 </div>
+<div id="list-area" class="row"></div>
 
 @section scripts
 {
     <script type="text/javascript">
-        function xyz(data, mapDatum) {
+        function buildSimpleList(data, mapDatum, columnClass) {
+            columnClass = columnClass || 'col-xs-4';
+
             d3
-                .select('.jumbotron')
+                .select('#list-area')
                 .append('div')
+                .classed(columnClass, true)
                 .append('ul')
+                .classed('nav nav-pills nav-stacked', true)
                 .selectAll('li')
                 .data(data)
                 .enter()
                 .append('li')
+                .attr('role', 'presentation')
+                .append('a')
+                .attr('href', '#')
                 .html(mapDatum);
         }
 
-        $('document').ready(function () {
-            var data;
+        $('document').ready(function() {
 
-            d3.json('api2/people', function (error, json) {
-                xyz(json, function (d) { return d.first; });
+            buildSimpleList(['a', 'b', 'c', 'd'], function (d) { return d; });
+
+            d3.json('api2/people', function(error, json) {
+                buildSimpleList(json, function(d) { return d.first; });
             });
 
             d3.json(
-                'http://demo.ckan.org/api/3/action/group_list',
-                function (error, json) {
-                    xyz(json.result, function(d) { return d; });
+                'http://www.reddit.com/.json',
+                function(error, json) {
+                    var posts = json.data.children;
+                    buildSimpleList(posts, function(p) { return p.data.title; }, 'col-xs-12');
                 });
         });
     </script>
