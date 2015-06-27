@@ -1,28 +1,67 @@
 ﻿<div class="jumbotron">
-    <h2>D3 Selections</h2>
+    <h1>
+        d3.select(selector)
+    </h1>
+    <p>Selects the first element that matches the specified selector string</p>
 </div>
+
+<h1 id="first-set">
+    <span class="label label-default">Alpha</span>
+    <span class="label label-default scruffy">Bravo</span>
+    <span class="label label-default scruffy">Charlie</span>
+    <span class="label label-default scruffy">Delta</span>
+    <span class="label label-default">Echo</span>
+    <span class="label label-default">Foxtrot</span>
+    <span class="label label-default">Golf</span>
+</h1>
+<h1 id="second-set">
+    <span class="label label-default">Alpha</span>
+    <span class="label label-default scruffy">Bravo</span>
+    <span class="label label-default scruffy">Charlie</span>
+    <span class="label label-default scruffy">Delta</span>
+    <span class="label label-default">Echo</span>
+    <span class="label label-default">Foxtrot</span>
+    <span class="label label-default">Golf</span>
+</h1>
+<br/>
+
+<button id="run-selects" class="btn btn-success btn-lg" type="submit">Select</button>
 
 @section scripts
 {
     <script type="text/javascript">
-        function buildSimpleList(data, mapDatum, columnClass) {
-            columnClass = columnClass || 'col-xs-4';
-
-            d3
-                .select('#list-area')
-                .append('div')
-                .text('Section')
-                .classed(columnClass, true)
-                .append('ul')
-                .selectAll('li')
-                .data(data)
-                .enter()
-                .append('li')
-                .html(mapDatum);
+        function containsLetter(letter, text) {
+            return text.indexOf(letter) !== -1;
         }
 
-        $('document').ready(function() {
+        function onSelect() {
+            /*
+             * Mark every label as success
+             */
+            d3
+                .select('#first-set')
+                .select('span')
+                .classed('label-success', true);
 
+            /*
+             * Mark all scruffy labels as danger
+             */
+            d3
+                .select('#second-set')
+                .select('span.scruffy')
+                .classed('label-danger', true);
+
+
+            // Disable the button
+            d3
+                .select('#run-selects')
+                .attr('disabled', 'disabled');
+        }
+
+        $('document').ready(function () {
+            $('#run-selects')
+                .prop('disabled', false)
+                .click(onSelect);
         });
     </script>
 }

@@ -1,38 +1,52 @@
-﻿<div class="page-header">
-    <h1>d3.selectAll(selector) <small>Selects all elements that match the specified selector</small></h1>
+﻿<div class="jumbotron">
+    <h1>d3.selectAll(selector)</h1>
+    <p>Selects all elements that match the specified selector</p>
 </div>
 
-
+<h1 id="first-set">
+    <span class="label label-default">Alpha</span>
+    <span class="label label-default scruffy">Bravo</span>
+    <span class="label label-default scruffy">Charlie</span>
+    <span class="label label-default scruffy">Delta</span>
+    <span class="label label-default">Echo</span>
+    <span class="label label-default">Foxtrot</span>
+    <span class="label label-default">Golf</span>
+</h1>
+<h1 id="second-set">
+    <span class="label label-default">Alpha</span>
+    <span class="label label-default scruffy">Bravo</span>
+    <span class="label label-default scruffy">Charlie</span>
+    <span class="label label-default scruffy">Delta</span>
+    <span class="label label-default">Echo</span>
+    <span class="label label-default">Foxtrot</span>
+    <span class="label label-default">Golf</span>
+</h1>
+<h1 id="third-set">
+    <span class="label label-default">Alpha</span>
+    <span class="label label-default scruffy">Bravo</span>
+    <span class="label label-default scruffy">Charlie</span>
+    <span class="label label-default scruffy">Delta</span>
+    <span class="label label-default">Echo</span>
+    <span class="label label-default">Foxtrot</span>
+    <span class="label label-default">Golf</span>
+</h1>
+<br />
 
 <div class="row">
-    <h1 id="first-set">
-        <span class="label label-default">Alpha</span>
-        <span class="label label-default scruffy">Bravo</span>
-        <span class="label label-default scruffy">Charlie</span>
-        <span class="label label-default scruffy">Delta</span>
-        <span class="label label-default">Echo</span>
-        <span class="label label-default">Foxtrot</span>
-        <span class="label label-default">Golf</span>
-    </h1>
-    <h1 id="second-set">
-        <span class="label label-default">Alpha</span>
-        <span class="label label-default scruffy">Bravo</span>
-        <span class="label label-default scruffy">Charlie</span>
-        <span class="label label-default scruffy">Delta</span>
-        <span class="label label-default">Echo</span>
-        <span class="label label-default">Foxtrot</span>
-        <span class="label label-default">Golf</span>
-    </h1>
-    <h1 id ="third-set">
-        <span class="label label-default">Alpha</span>
-        <span class="label label-default scruffy">Bravo</span>
-        <span class="label label-default scruffy">Charlie</span>
-        <span class="label label-default scruffy">Delta</span>
-        <span class="label label-default">Echo</span>
-        <span class="label label-default">Foxtrot</span>
-        <span class="label label-default">Golf</span>
-    </h1>
+    <div class="col-sm-4">
+        <ul id="first-list" class="list-group">
+            <li class="list-group-item list-group-item-default">Alpha</li>
+            <li class="list-group-item list-group-item-default">Bravo</li>
+            <li class="list-group-item list-group-item-default">Charlie</li>
+            <li class="list-group-item list-group-item-default">Delta</li>
+            <li class="list-group-item list-group-item-default">Echo</li>
+            <li class="list-group-item list-group-item-default">Foxtrot</li>
+            <li class="list-group-item list-group-item-default">Golf</li>
+        </ul>
+    </div><!-- /.col-sm-4 -->
 </div>
+
+<button id="run-selects" class="btn btn-success btn-lg" type="submit">Select</button>
 
 @section scripts
 {
@@ -41,8 +55,7 @@
             return text.indexOf(letter) !== -1;
         }
 
-        $('document').ready(function () {
-
+        function onSelect() {
             /*
              * Mark every label as success
              */
@@ -50,6 +63,12 @@
                 .select('#first-set')
                 .selectAll('span')
                 .classed('label-success', true);
+
+            d3
+                .select('#first-list')
+                .selectAll('li')
+                .classed('list-group-item-success', true);
+            
 
             /*
              * Mark all scruffy labels as danger
@@ -65,9 +84,19 @@
             d3
                 .select('#third-set')
                 .selectAll('span')
-                .classed('label-info', function() {
+                .classed('label-info', function () {
                     return containsLetter('o', this.textContent);
                 });
+
+            d3
+                .select('#run-selects')
+                .attr('disabled', 'disabled');
+        }
+
+        $('document').ready(function () {
+            $('#run-selects')
+                .prop('disabled', false)
+                .click(onSelect);
         });
     </script>
 }
