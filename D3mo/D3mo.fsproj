@@ -133,6 +133,7 @@
     <Compile Include="Controllers\DemoSelectionController.fs" />
     <Compile Include="Controllers\Demo01Controller.fs" />
     <Compile Include="Controllers\PeopleController.fs" />
+    <Compile Include="Controllers\DataController.fs" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Demo01\Index.cshtml" />
@@ -148,6 +149,7 @@
     <Content Include="readme.txt" />
     <Content Include="Views\DemoSelection\Index.cshtml" />
     <Content Include="Views\DemoSelectAll\Index.cshtml" />
+    <Content Include="Views\Data\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">

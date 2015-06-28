@@ -1,44 +1,84 @@
 ﻿<div class="jumbotron">
-    <h2>D3 Selections</h2>
+    <h2>selection.enter()</h2>
+    <p>Returns the enter selection: placeholder nodes for each data element for which no corresponding existing DOM element was found in the current selection. </p>
 </div>
-<div id="list-area" class="row"></div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <ul id="first-list" class="list-group"></ul>
+    </div>
+    <div class="col-md-4">
+        <ul id="second-list" class="list-group">
+            <li class="list-group-item list-group-item-default">Alpha</li>
+            <li class="list-group-item list-group-item-default scruffy">Bravo</li>
+            <li class="list-group-item list-group-item-default scruffy">Charlie</li></ul>
+    </div>
+    <div class="col-md-4">
+        <ul id="third-list" class="list-group">
+            <li class="list-group-item list-group-item-default">Alpha</li>
+            <li class="list-group-item list-group-item-default scruffy">Bravo</li>
+            <li class="list-group-item list-group-item-default scruffy">Charlie</li>
+            <li class="list-group-item list-group-item-default scruffy">Delta</li>
+            <li class="list-group-item list-group-item-default">Echo</li>
+            <li class="list-group-item list-group-item-default">Foxtrot</li>
+            <li class="list-group-item list-group-item-default">Golf</li>
+            <li class="list-group-item list-group-item-default">Hotel</li>
+
+        </ul>
+    </div>
+</div>
+
+<button id="run-button" class="btn btn-success btn-lg" type="submit">Run</button>
 
 @section scripts
 {
     <script type="text/javascript">
-        function buildSimpleList(data, mapDatum, columnClass) {
-            columnClass = columnClass || 'col-xs-4';
+        var colors = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'];
+
+        function buildSimpleList(listId) {
 
             d3
-                .select('#list-area')
-                .append('div')
-                .classed(columnClass, true)
-                .append('ul')
-                .classed('nav nav-pills nav-stacked', true)
+                .select(listId)
                 .selectAll('li')
-                .data(data)
+
+                .data(colors)
+
                 .enter()
                 .append('li')
-                .attr('role', 'presentation')
-                .append('a')
-                .attr('href', '#')
-                .html(mapDatum);
+                .classed('list-group-item list-group-item-success', true)
+                .html(function(d) {
+                    return '<span class="glyphicon glyphicon-thumbs-up"></span> ' + d;
+                });
+            
+
+            d3
+                .select('#run-button')
+                .attr('disabled', 'disabled');
         }
 
-        $('document').ready(function() {
+        $('document').ready(function () {
 
-            buildSimpleList(['a', 'b', 'c', 'd'], function (d) { return d; });
-
-            d3.json('api2/people', function(error, json) {
-                buildSimpleList(json, function(d) { return d.first; });
+            $('#run-button')
+                .prop('disabled', false)
+                .click(function () {
+                    buildSimpleList('#first-list');
+                    buildSimpleList('#second-list');
+                    buildSimpleList('#third-list');
             });
 
-            d3.json(
-                'http://www.reddit.com/.json',
-                function(error, json) {
-                    var posts = json.data.children;
-                    buildSimpleList(posts, function(p) { return p.data.title; }, 'col-xs-12');
-                });
+            //buildSimpleList(['a', 'b', 'c', 'd'], function (d) { return d; });
+
+            //d3.json('api2/people', function(error, json) {
+            //    buildSimpleList(json, function(d) { return d.first; });
+            //});
+
+            //d3.json(
+            //    'http://www.reddit.com/.json',
+            //    function(error, json) {
+            //        var posts = json.data.children;
+            //        buildSimpleList(posts, function(p) { return p.data.title; }, 'col-xs-12');
+            //    });
         });
     </script>
 }

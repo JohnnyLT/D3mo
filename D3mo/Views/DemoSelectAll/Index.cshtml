@@ -32,21 +32,43 @@
 </h1>
 <br />
 
-<div class="row">
+@*<div class="row">
     <div class="col-sm-4">
         <ul id="first-list" class="list-group">
             <li class="list-group-item list-group-item-default">Alpha</li>
-            <li class="list-group-item list-group-item-default">Bravo</li>
-            <li class="list-group-item list-group-item-default">Charlie</li>
-            <li class="list-group-item list-group-item-default">Delta</li>
+            <li class="list-group-item list-group-item-default scruffy">Bravo</li>
+            <li class="list-group-item list-group-item-default scruffy">Charlie</li>
+            <li class="list-group-item list-group-item-default scruffy">Delta</li>
             <li class="list-group-item list-group-item-default">Echo</li>
             <li class="list-group-item list-group-item-default">Foxtrot</li>
             <li class="list-group-item list-group-item-default">Golf</li>
         </ul>
-    </div><!-- /.col-sm-4 -->
-</div>
+    </div>
+    <div class="col-sm-4">
+        <ul id="second-list" class="list-group">
+            <li class="list-group-item list-group-item-default">Alpha</li>
+            <li class="list-group-item list-group-item-default scruffy">Bravo</li>
+            <li class="list-group-item list-group-item-default scruffy">Charlie</li>
+            <li class="list-group-item list-group-item-default scruffy">Delta</li>
+            <li class="list-group-item list-group-item-default">Echo</li>
+            <li class="list-group-item list-group-item-default">Foxtrot</li>
+            <li class="list-group-item list-group-item-default">Golf</li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <ul id="third-list" class="list-group">
+            <li class="list-group-item list-group-item-default">Alpha</li>
+            <li class="list-group-item list-group-item-default scruffy">Bravo</li>
+            <li class="list-group-item list-group-item-default scruffy">Charlie</li>
+            <li class="list-group-item list-group-item-default scruffy">Delta</li>
+            <li class="list-group-item list-group-item-default">Echo</li>
+            <li class="list-group-item list-group-item-default">Foxtrot</li>
+            <li class="list-group-item list-group-item-default">Golf</li>
+        </ul>
+    </div>
+</div>*@
 
-<button id="run-selects" class="btn btn-success btn-lg" type="submit">Select</button>
+<button id="run-selects" class="btn btn-success btn-lg" type="submit">Select All</button>
 
 @section scripts
 {
@@ -64,10 +86,10 @@
                 .selectAll('span')
                 .classed('label-success', true);
 
-            d3
-                .select('#first-list')
-                .selectAll('li')
-                .classed('list-group-item-success', true);
+            //d3
+            //    .select('#first-list')
+            //    .selectAll('li')
+            //    .classed('list-group-item-success', true);
             
 
             /*
