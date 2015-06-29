@@ -1,0 +1,66 @@
+﻿<div class="jumbotron">
+    <h2>SVG</h2>
+    <p>
+
+    </p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <svg viewBox="0 0 600 200" width="100%" height="100%">
+            <circle cx="100" cy="100" r="50" stroke="#FFFFFF" stroke-width="2" fill="#D1E751" />
+        </svg>
+    </div>
+</div>
+
+<br/>
+<button id="run-d3-button" class="btn btn-success btn-lg" type="submit">Run</button>
+
+@section localStyles
+{
+    <style type="text/css">
+        svg {
+            background-color: #4DBCE9;
+            border-radius: 5px;
+        }
+
+        circle.demo {
+            fill: #ffffff;
+            stroke-width: 3;
+            stroke: #000000;
+        }
+    </style>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        function paintCircle() {
+            d3.select('svg')
+                .append('circle')
+                .attr('cx', 300)
+                .attr('cy', 100)
+                .attr('r', 50)
+                .style('fill', '#000000')
+                .style('stroke', '#D1E751')
+                .style('stroke-width', 2);
+
+            d3.select('svg')
+                .append('circle')
+                .attr('cx', 500)
+                .attr('cy', 100)
+                .attr('r', 50)
+                .classed('demo', true);
+
+            d3.select('#run-d3-button')
+                .attr('disabled', 'disabled');
+        }
+
+        $('document').ready(function () {
+            $('#run-d3-button')
+                .prop('disabled', false)
+                .click(paintCircle);
+        });
+    </script>
+}
