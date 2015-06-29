@@ -37,7 +37,10 @@
 {
     <script type="text/javascript">
         function paintCircle() {
-            d3.select('svg')
+
+            var svg = d3.select('svg');
+
+            svg
                 .append('circle')
                 .attr('cx', 300)
                 .attr('cy', 100)
@@ -46,7 +49,7 @@
                 .style('stroke', '#D1E751')
                 .style('stroke-width', 2);
 
-            d3.select('svg')
+            svg
                 .append('circle')
                 .attr('cx', 500)
                 .attr('cy', 100)
