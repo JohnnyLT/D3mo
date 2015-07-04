@@ -1,0 +1,67 @@
+﻿<div class="jumbotron">
+    <h1>selection.data([values[, key]])</h1>
+    <p>Binds each item in array <em>values</em> to an item in the selection.</p>
+    <p>Joins the specified array of data with the current selection. The specified values is an array of data values (e.g. numbers or objects), or a function that returns an array of values. If a key function is not specified, then the first datum in values is assigned to the first element in the current selection, the second datum to the second selected element, and so on. When data is assigned to an element, it is stored in the property __data__ (defined by D3), thus making the data "sticky" so that the it is available on re-selection.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<button id="run-selects" class="btn btn-lg" type="submit">Follow In Debugger and Click</button>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        function onClick() {
+
+            $('#run-selects').prop('disabled', true);
+            d3.json('http://api.randomuser.me/', function (error, data) {
+
+                var tr = d3.select('tbody')
+                    .data(data.results)
+                    .append('tr');
+
+                tr.append('td')
+                    .text(function(d) {
+                        return d.user.name.first;
+                    });
+
+                tr.append('td')
+                    .text(function (d) {
+                        return d.user.name.last;
+                    });
+
+                tr.append('td')
+                    .text(function (d) {
+                        return d.user.email;
+                    });
+
+                $('#run-selects').prop('disabled', false);
+            });
+
+        }
+
+        $('document').ready(function () {
+            $('#run-selects')
+                .prop('disabled', false)
+                .click(onClick);
+
+            for (var i = 0; i < 5; i++) {
+                onClick();
+            }
+        });
+    </script>
+}

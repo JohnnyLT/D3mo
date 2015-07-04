@@ -10,3 +10,7 @@ open System.Web.Mvc.Ajax
 type DataController() =
     inherit Controller()
     member this.Index () = this.View()
+
+type RandomUsersController() =
+    inherit Controller()
+    member this.Index () = this.View()

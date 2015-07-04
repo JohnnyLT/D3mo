@@ -105,6 +105,7 @@
   </ProjectExtensions>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Configuration.fs" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-theme.css.map" />
@@ -135,13 +136,15 @@
     <Compile Include="Controllers\PeopleController.fs" />
     <Compile Include="Controllers\DataController.fs" />
     <Compile Include="Controllers\SvgControllers.fs" />
+    <Compile Include="Controllers\EmployeeCoachesController.fs" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\BasicSvg\Index.cshtml" />
+    <Content Include="Views\Data\Index.cshtml" />
     <Content Include="Views\Demo01\Index.cshtml" />
     <Content Include="Views\DemoSelection\Index.cshtml" />
     <Content Include="Views\DemoSelectAll\Index.cshtml" />
-    <Content Include="Views\Data\Index.cshtml" />
-    <Content Include="Views\BasicSvg\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\RandomUsers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -158,12 +161,20 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FSharp.Configuration">
+      <HintPath>..\packages\FSharp.Configuration.0.5.3\lib\net40\FSharp.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>$(SolutionDir)\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpYaml">
+      <HintPath>..\packages\FSharp.Configuration.0.5.3\lib\net40\SharpYaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -223,6 +234,18 @@
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D3mo.Interface\D3mo.Interface.fsproj">
+      <Name>D3mo.Interface</Name>
+      <Project>{3b5d975a-c2ce-4091-9669-d16751cd25be}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\D3mo.Services.Factory\D3mo.Services.Factory.fsproj">
+      <Name>D3mo.Services.Factory</Name>
+      <Project>{aabb47a7-3346-4d8d-8177-cbe8b7eea832}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Target Name="BeforeBuild">
     <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" RegexPattern="&lt;dependentAssembly&gt;([\s]+.)&lt;assemblyIdentity name=&quot;FSharp\.Core&quot; publicKeyToken=&quot;b03f5f7f11d50a3a&quot; culture=&quot;neutral&quot; \/&gt;([\s\S]+?)&lt;\/dependentAssembly&gt;" RegexOptionList="IgnoreCase|Singleline" Replacement="&lt;dependentAssembly&gt;&#xD;&#xA;        &lt;assemblyIdentity name=&quot;FSharp.Core&quot; publicKeyToken=&quot;b03f5f7f11d50a3a&quot; culture=&quot;neutral&quot; /&gt;&#xD;&#xA;        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-$(TargetFSharpCoreVersion)&quot; newVersion=&quot;$(TargetFSharpCoreVersion)&quot;/&gt;&#xD;&#xA;      &lt;/dependentAssembly&gt;" Files="web.config" />
