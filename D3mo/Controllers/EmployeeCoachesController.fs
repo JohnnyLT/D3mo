@@ -10,10 +10,9 @@ open D3mo.Services
 [<RoutePrefix("api2/EmployeeCoaches")>]
 type EmployeeCoachesController() =
     inherit ApiController()
-
-    let serviceType = D3mo.Configuration.serviceType
-
-    let employeeCoachService = Factory.getEmployeeCoaches serviceType
+    
+    let employeeCoachService = 
+        Factory.getEmployeeCoachesService D3mo.Configuration.serviceType
 
     /// Gets all values.
     [<Route("")>]

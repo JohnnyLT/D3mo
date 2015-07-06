@@ -1,0 +1,75 @@
+﻿<div class="jumbotron">
+    <h2>SVG</h2>
+    <p>
+
+    </p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <svg viewBox="0 0 960 540" width="100%" height="100%"></svg>
+    </div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-xs-12">
+        <ul id="name-list" class="list-group"></ul>
+    </div>
+</div>
+
+@section localStyles
+{
+    <style type="text/css">
+        svg {
+            background-color: #4DBCE9;
+            border-radius: 5px;
+        }
+
+        circle.demo {
+            fill: #ffffff;
+            stroke-width: 3;
+            stroke: #000000;
+        }
+    </style>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        function buildTree() {
+
+            var svg = d3.select('svg');
+
+            var ul =
+                d3
+                    .select('#name-list')
+                    .selectAll('li');
+
+            var treeChart = d3.layout.tree();
+            treeChart
+                .size([500, 500])
+                .children(function(d) { return d; });
+
+            d3.json('api2/EmployeeCoaches',
+                function (error, data) {
+                    ul
+                        .data(data)
+                        .enter()
+                        .append('li')
+                        .classed('list-group-item', true)
+                        .html(function (d) {
+                            return d.employee.fullName;
+                        });
+
+
+                });
+
+        }
+
+        $('document').ready(function () {
+            buildTree();
+        });
+    </script>
+}

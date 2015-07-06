@@ -10,3 +10,7 @@ open System.Web.Mvc.Ajax
 type BasicSvgController() =
     inherit Controller()
     member this.Index () = this.View()
+
+type CompanyTreeController() =
+    inherit Controller()
+    member this.Index () = this.View()

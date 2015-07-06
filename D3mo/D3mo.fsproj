@@ -139,6 +139,7 @@
     <Compile Include="Controllers\EmployeeCoachesController.fs" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\BasicSvg\Index.cshtml" />
+    <Content Include="Views\CompanyTree\Index.cshtml" />
     <Content Include="Views\Data\Index.cshtml" />
     <Content Include="Views\Demo01\Index.cshtml" />
     <Content Include="Views\DemoSelection\Index.cshtml" />

@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers.fs" />
-    <Compile Include="Library1.fs" />
+    <Compile Include="DefaultEmployeeCoaches.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\D3mo.Interface\D3mo.Interface.fsproj">
