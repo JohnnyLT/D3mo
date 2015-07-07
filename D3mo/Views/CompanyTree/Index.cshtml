@@ -1,25 +1,4 @@
-﻿<div class="jumbotron">
-    <h2>SVG</h2>
-    <p>
-
-    </p>
-</div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <svg viewBox="0 0 960 540" width="100%" height="100%"></svg>
-    </div>
-</div>
-<br/>
-
-<div class="row">
-    <div class="col-xs-12">
-        <ul id="name-list" class="list-group"></ul>
-    </div>
-</div>
-
-@section localStyles
+﻿@section localStyles
 {
     <style type="text/css">
         svg {
@@ -35,40 +14,95 @@
     </style>
 }
 
+<div class="jumbotron">
+    <h2>SVG</h2>
+    <p>
+
+    </p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <svg viewBox="0 0 960 540" width="100%" height="100%"></svg>
+    </div>
+</div>
+<br />
+
 @section scripts
 {
     <script type="text/javascript">
-        function buildTree() {
+        var hDepth = {},
 
-            var svg = d3.select('svg');
+            getHDepth = function(employeeId, coachId, people) {
+                var depth;
 
-            var ul =
-                d3
-                    .select('#name-list')
-                    .selectAll('li');
+                if (people === undefined) {
+                    return 0;
+                }
 
-            var treeChart = d3.layout.tree();
-            treeChart
-                .size([500, 500])
-                .children(function(d) { return d; });
+                if (people[employeeId] !== undefined) {
+                    return people[employeeId];
+                }
 
-            d3.json('api2/EmployeeCoaches',
-                function (error, data) {
-                    ul
-                        .data(data)
-                        .enter()
-                        .append('li')
-                        .classed('list-group-item', true)
-                        .html(function (d) {
-                            return d.employee.fullName;
-                        });
+                if (people[coachId] === undefined) {
+                    people[coachId] = 0;
+                    people[employeeId] = 1;
+                }
+
+                depth = 1 + getHDepth(coachId, null, people);
+                hDepth[employeeId] = depth;
+                return depth;
+            },
+
+            buildTree = function() {
+                var svg = d3.select('svg');
 
 
-                });
+                var treeChart = d3.layout.tree();
+                treeChart
+                    .size([500, 500])
+                    .children(function(d) { return d; });
 
-        }
+                d3.json('api2/EmployeeCoaches',
+                    function(error, data) {
 
-        $('document').ready(function () {
+                        var linkGenerator = d3.svg.diagonal();
+
+
+                        var x = treeChart(data)[0];
+                        var levels = {};
+                        d3.select('svg')
+                            .append('g')
+                            .attr('id', 'treeG')
+                            .selectAll('g')
+                            .data(x)
+                            .enter()
+                            .append('g')
+                            .attr('class', 'node')
+                            .attr('transform', function(d) {
+                                var depth = getHDepth(d.employee.id, d.coach.id, hDepth);
+                                var level;
+                                if (levels[depth] === undefined) {
+                                    levels[depth] = 0;
+                                } else {
+                                    levels[depth]++;
+                                }
+                                level = 50 + 10 * levels[depth];
+                                var j = 10 + depth * 50;
+                                return 'translate(' + j + ',' + level + ')';
+                            });
+
+                        d3.selectAll('g.node')
+                            .append('circle')
+                            .attr('r', 7)
+                            .style('fill', function(d) { return 'black'; })
+                            .style('stroke', 'white')
+                            .style('stroke-width', '2px');
+                    });
+            };
+
+        $('document').ready(function() {
             buildTree();
         });
     </script>
