@@ -69,73 +69,72 @@
                 var root = {};
                 var r = relationships[0];
 
-                var dataMap = relationships.reduce(function (map, node) {
-                    map[node.employee.id] = node;
-                    return map;
-                }, {});
+                //var dataMap = relationships.reduce(function (map, node) {
+                //    map[node.employee.id] = node;
+                //    return map;
+                //}, {});
 
-                // create the tree array
-                var treeData = [];
-                relationships.forEach(function (node) {
-                    // add to parent
-                    var parent = dataMap[node.parent];
-                    if (parent) {
-                        // create child array if it doesn't exist
-                        (parent.children || (parent.children = []))
-                            // add node to child array
-                            .push(node);
-                    } else {
-                        // parent is null or missing
-                        treeData.push(node);
-                    }
-                });
+                //// create the tree array
+                //var treeData = [];
+                //relationships.forEach(function (node) {
+                //    // add to parent
+                //    var parent = dataMap[node.parent];
+                //    if (parent) {
+                //        // create child array if it doesn't exist
+                //        (parent.children || (parent.children = []))
+                //            // add node to child array
+                //            .push(node);
+                //    } else {
+                //        // parent is null or missing
+                //        treeData.push(node);
+                //    }
+                //});
 
-                //return [{
-                //    name: r.coach.id,
-                //    displayName: r.coach.fullName,
-                //    parent: 'null',
-                //    children: [
-                //        {
-                //            name: r.employee.id,
-                //            displayName: r.employee.fullName,
-                //            parent: r.coach.id,
-                //            children: [
-                //                {
-                //                    name: '123',
-                //                    displayName: 'George',
-                //                    parent: r.employee.id,
-                //                    children: []
-                //                }
-                //            ]
-                //        },
-                //        {
-                //            name: '456',
-                //            displayName: 'Hershel',
-                //            parent: r.coach.id,
-                //            children: []
-                //        },
-                //        {
-                //            name: '789',
-                //            displayName: 'Hank',
-                //            parent: r.coach.id,
-                //            children: [
-                //                {
-                //                    name: 'ASD',
-                //                    displayName: 'Freddy',
-                //                    parent: '789',
-                //                    children: []
-                //                },
-                //                {
-                //                    name: 'FGH',
-                //                    displayName: 'Andrew',
-                //                    parent: '789',
-                //                    children: []
-                //                }
-                //            ]
-                //        }
-                //    ]
-                //}
-                //];
+                return {
+                    name: r.coach.id,
+                    displayName: r.coach.fullName,
+                    parent: 'null',
+                    children: [
+                        {
+                            name: r.employee.id,
+                            displayName: r.employee.fullName,
+                            parent: r.coach.id,
+                            children: [
+                                {
+                                    name: '123',
+                                    displayName: 'George',
+                                    parent: r.employee.id,
+                                    children: []
+                                }
+                            ]
+                        },
+                        {
+                            name: '456',
+                            displayName: 'Hershel',
+                            parent: r.coach.id,
+                            children: []
+                        },
+                        {
+                            name: '789',
+                            displayName: 'Hank',
+                            parent: r.coach.id,
+                            children: [
+                                {
+                                    name: 'ASD',
+                                    displayName: 'Freddy',
+                                    parent: '789',
+                                    children: []
+                                },
+                                {
+                                    name: 'FGH',
+                                    displayName: 'Andrew',
+                                    parent: '789',
+                                    children: []
+                                }
+                            ]
+                        }
+                    ]
+                };
             },
 
             buildTree = function () {
@@ -143,8 +142,7 @@
 
                 var treeChart = d3.layout.tree();
                 treeChart
-                    .size([960, 540])
-                    .children(function (d) { return d; });
+                    .size([960, 540]);
 
                 d3.json('api2/EmployeeCoaches',
                     function (error, data) {
@@ -162,7 +160,6 @@
                             .append('g')
                             .attr('class', 'node')
                             .attr('transform', function (d) {
-
                                 return 'translate(' + d.x + ',' + d.y + ')';
                             });
 
