@@ -2,14 +2,14 @@
 {
     <style type="text/css">
         svg {
-            background-color: #4DBCE9;
+            background-color: white;
             border-radius: 5px;
         }
 
-        circle.demo {
-            fill: #ffffff;
-            stroke-width: 3;
-            stroke: #000000;
+        g.node circle {
+            fill: #4DBCE9;
+            stroke: black;
+            stroke-width: 2px;
         }
     </style>
 }
@@ -34,9 +34,7 @@
     <script type="text/javascript">
         var hDepth = {},
 
-            getHDepth = function(employeeId, coachId, people) {
-                var depth;
-
+            getHDepth = function (employeeId, coachId, people) {
                 if (people === undefined) {
                     return 0;
                 }
@@ -50,14 +48,13 @@
                     people[employeeId] = 1;
                 }
 
-                depth = 1 + getHDepth(coachId, null, people);
-                hDepth[employeeId] = depth;
-                return depth;
+                hDepth[employeeId] = 1 + getHDepth(coachId, null, people);
+                return hDepth[employeeId];
             },
 
-            getLevelCalculator = function() {
+            getLevelCalculator = function () {
                 var levels = {};
-                return function(depth) {
+                return function (depth) {
                     if (levels[depth] === undefined) {
                         levels[depth] = 0;
                     } else {
@@ -67,22 +64,95 @@
                 };
             },
 
-            buildTree = function() {
-                var svg = d3.select('svg');
+            assembleTreeObject = function (relationships) {
+                var tree = {};
+                var root = {};
+                var r = relationships[0];
 
+                var dataMap = relationships.reduce(function (map, node) {
+                    map[node.employee.id] = node;
+                    return map;
+                }, {});
+
+                // create the tree array
+                var treeData = [];
+                relationships.forEach(function (node) {
+                    // add to parent
+                    var parent = dataMap[node.parent];
+                    if (parent) {
+                        // create child array if it doesn't exist
+                        (parent.children || (parent.children = []))
+                            // add node to child array
+                            .push(node);
+                    } else {
+                        // parent is null or missing
+                        treeData.push(node);
+                    }
+                });
+
+                //return [{
+                //    name: r.coach.id,
+                //    displayName: r.coach.fullName,
+                //    parent: 'null',
+                //    children: [
+                //        {
+                //            name: r.employee.id,
+                //            displayName: r.employee.fullName,
+                //            parent: r.coach.id,
+                //            children: [
+                //                {
+                //                    name: '123',
+                //                    displayName: 'George',
+                //                    parent: r.employee.id,
+                //                    children: []
+                //                }
+                //            ]
+                //        },
+                //        {
+                //            name: '456',
+                //            displayName: 'Hershel',
+                //            parent: r.coach.id,
+                //            children: []
+                //        },
+                //        {
+                //            name: '789',
+                //            displayName: 'Hank',
+                //            parent: r.coach.id,
+                //            children: [
+                //                {
+                //                    name: 'ASD',
+                //                    displayName: 'Freddy',
+                //                    parent: '789',
+                //                    children: []
+                //                },
+                //                {
+                //                    name: 'FGH',
+                //                    displayName: 'Andrew',
+                //                    parent: '789',
+                //                    children: []
+                //                }
+                //            ]
+                //        }
+                //    ]
+                //}
+                //];
+            },
+
+            buildTree = function () {
+                var svg = d3.select('svg');
 
                 var treeChart = d3.layout.tree();
                 treeChart
-                    .size([500, 500])
-                    .children(function(d) { return d; });
+                    .size([960, 540])
+                    .children(function (d) { return d; });
 
                 d3.json('api2/EmployeeCoaches',
-                    function(error, data) {
+                    function (error, data) {
 
                         var linkGenerator = d3.svg.diagonal();
-                        var calculateDepthLevel = getLevelCalculator();
+                        var treeData = assembleTreeObject(data);
+                        var x = treeChart(treeData);
 
-                        var x = treeChart(data)[0];
                         d3.select('svg')
                             .append('g')
                             .attr('id', 'treeG')
@@ -91,26 +161,30 @@
                             .enter()
                             .append('g')
                             .attr('class', 'node')
-                            .attr('transform', function(d) {
-                                var depth = getHDepth(d.employee.id, d.coach.id, hDepth),
-                                    xPos = 10 + depth * 50,
-                                    yPos;
-                                
-                                yPos = 50 + 20 * calculateDepthLevel(depth);
+                            .attr('transform', function (d) {
 
-                                return 'translate(' + xPos + ',' + yPos + ')';
+                                return 'translate(' + d.x + ',' + d.y + ')';
                             });
 
                         d3.selectAll('g.node')
                             .append('circle')
-                            .attr('r', 6)
-                            .style('fill', function(d) { return 'white'; })
+                            .attr('r', 6);
+
+                        var links = treeChart.links(x);
+
+                        d3.select('#treeG')
+                            .selectAll('path')
+                            .data(links)
+                            .enter()
+                            .insert('path', 'g')
+                            .attr('d', linkGenerator)
+                            .style('fill', 'none')
                             .style('stroke', 'black')
-                            .style('stroke-width', '1.5px');
+                            .style('stroke-width', '2px');
                     });
             };
 
-        $('document').ready(function() {
+        $('document').ready(function () {
             buildTree();
         });
     </script>
