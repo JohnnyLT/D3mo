@@ -14,17 +14,17 @@
     </style>
 }
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h2>SVG</h2>
     <p>
 
     </p>
-</div>
+</div>*@
 
 
 <div class="row">
     <div class="col-md-12">
-        <svg viewBox="0 0 960 540" width="100%" height="100%"></svg>
+        <svg viewBox="0 0 960 960" width="100%" height="100%"></svg>
     </div>
 </div>
 <br />
@@ -32,109 +32,45 @@
 @section scripts
 {
     <script type="text/javascript">
-        var hDepth = {},
+        var assembleTreeObject = function (relationships) {
 
-            getHDepth = function (employeeId, coachId, people) {
-                if (people === undefined) {
-                    return 0;
-                }
+                var dataMap =
+                    relationships.reduce(
+                        function (tree, relationship) {
+                            if (tree[relationship.coach.id] === undefined) {
+                                tree[relationship.coach.id] = {
+                                    name: relationship.coach.id,
+                                    displayName: relationship.coach.fullName
+                                };
+                            }
 
-                if (people[employeeId] !== undefined) {
-                    return people[employeeId];
-                }
+                            if (tree[relationship.employee.id] === undefined) {
+                                tree[relationship.employee.id] = {
+                                    name: relationship.employee.id,
+                                    displayName: relationship.employee.fullName
+                                };
+                            }
 
-                if (people[coachId] === undefined) {
-                    people[coachId] = 0;
-                    people[employeeId] = 1;
-                }
+                            if (tree[relationship.employee.id].parent === undefined) {
+                                tree[relationship.employee.id].parent = relationship.coach.id;
+                            }
 
-                hDepth[employeeId] = 1 + getHDepth(coachId, null, people);
-                return hDepth[employeeId];
-            },
+                            return tree;
 
-            getLevelCalculator = function () {
-                var levels = {};
-                return function (depth) {
-                    if (levels[depth] === undefined) {
-                        levels[depth] = 0;
-                    } else {
-                        levels[depth]++;
+                        }, {});
+
+                var root;
+                relationships.forEach(function(relationship) {
+                    var parent = dataMap[relationship.coach.id];
+                    
+                    (parent.children || (parent.children = [])).push(dataMap[relationship.employee.id]);
+
+                    if (parent.parent === undefined) {
+                        root = parent;
                     }
-                    return levels[depth];
-                };
-            },
+                });
+                return root;
 
-            assembleTreeObject = function (relationships) {
-                var tree = {};
-                var root = {};
-                var r = relationships[0];
-
-                //var dataMap = relationships.reduce(function (map, node) {
-                //    map[node.employee.id] = node;
-                //    return map;
-                //}, {});
-
-                //// create the tree array
-                //var treeData = [];
-                //relationships.forEach(function (node) {
-                //    // add to parent
-                //    var parent = dataMap[node.parent];
-                //    if (parent) {
-                //        // create child array if it doesn't exist
-                //        (parent.children || (parent.children = []))
-                //            // add node to child array
-                //            .push(node);
-                //    } else {
-                //        // parent is null or missing
-                //        treeData.push(node);
-                //    }
-                //});
-
-                return {
-                    name: r.coach.id,
-                    displayName: r.coach.fullName,
-                    parent: 'null',
-                    children: [
-                        {
-                            name: r.employee.id,
-                            displayName: r.employee.fullName,
-                            parent: r.coach.id,
-                            children: [
-                                {
-                                    name: '123',
-                                    displayName: 'George',
-                                    parent: r.employee.id,
-                                    children: []
-                                }
-                            ]
-                        },
-                        {
-                            name: '456',
-                            displayName: 'Hershel',
-                            parent: r.coach.id,
-                            children: []
-                        },
-                        {
-                            name: '789',
-                            displayName: 'Hank',
-                            parent: r.coach.id,
-                            children: [
-                                {
-                                    name: 'ASD',
-                                    displayName: 'Freddy',
-                                    parent: '789',
-                                    children: []
-                                },
-                                {
-                                    name: 'FGH',
-                                    displayName: 'Andrew',
-                                    parent: '789',
-                                    children: []
-                                }
-                            ]
-                        }
-                    ]
-                };
             },
 
             buildTree = function () {
@@ -159,7 +95,7 @@
                             .enter()
                             .append('g')
                             .attr('class', 'node')
-                            .attr('transform', function (d) {
+                            .attr('transform', function(d) {
                                 return 'translate(' + d.x + ',' + d.y + ')';
                             });
 
