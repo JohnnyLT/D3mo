@@ -11,20 +11,29 @@
             stroke: black;
             stroke-width: 2px;
         }
+
+        path.link {
+            stroke: #4DBCE9;
+            fill: #4DBCE9;
+        }
+
+        g.node text {
+            transform: rotate(-10deg)translate(10px,-5px);
+        }
     </style>
 }
 
 @*<div class="jumbotron">
-    <h2>SVG</h2>
-    <p>
+        <h2>SVG</h2>
+        <p>
 
-    </p>
-</div>*@
+        </p>
+    </div>*@
 
 
 <div class="row">
     <div class="col-md-12">
-        <svg viewBox="0 0 960 960" width="100%" height="100%"></svg>
+        <svg width="100%" height="100%"></svg>
     </div>
 </div>
 <br />
@@ -33,8 +42,7 @@
 {
     <script type="text/javascript">
         var assembleTreeObject = function (relationships) {
-
-                var dataMap =
+            var dataMap =
                     relationships.reduce(
                         function (tree, relationship) {
                             if (tree[relationship.coach.id] === undefined) {
@@ -59,66 +67,73 @@
 
                         }, {});
 
-                var root;
-                relationships.forEach(function(relationship) {
-                    var parent = dataMap[relationship.coach.id];
-                    
-                    (parent.children || (parent.children = [])).push(dataMap[relationship.employee.id]);
+            var root;
+            relationships.forEach(function (relationship) {
+                var parent = dataMap[relationship.coach.id];
 
-                    if (parent.parent === undefined) {
-                        root = parent;
-                    }
+                (parent.children || (parent.children = [])).push(dataMap[relationship.employee.id]);
+
+                if (parent.parent === undefined) {
+                    root = parent;
+                }
+            });
+            return root;
+        },
+
+        buildTree = function (svgWidth, svgHeight) {
+            var svg = d3.select('svg')
+                        .attr('viewBox', '0 0 ' + svgWidth + ' ' + svgWidth)
+                        .append('g')
+                        .attr('id', 'treeG');
+
+            var treeChart = d3.layout.tree();
+            treeChart.size([svgWidth, svgWidth]);
+
+            d3.json('api2/EmployeeCoaches',
+                function (error, data) {
+                    var linkGenerator = d3.svg.diagonal(),
+                        treeData = treeChart(assembleTreeObject(data)),
+                        links = treeChart.links(treeData);
+
+                    svg
+                        .selectAll('g')
+                        .data(treeData)
+                        .enter()
+                        .append('g')
+                        .attr('class', 'node')
+                        .attr('transform', function (d) {
+                            return 'translate(' + d.y + ',' + d.x + ')';
+                        });
+
+
+                    d3.selectAll('g.node')
+                        .append('circle')
+                        .attr('r', 6);
+
+
+                    d3.selectAll('g.node')
+                        .append('text')
+                        .text(function (d) {
+                            return d.displayName;
+                        });
+
+                    linkGenerator.projection(function (d) { return [d.y, d.x]; });
+                    d3.select('#treeG')
+                        .selectAll('path')
+                        .data(links)
+                        .enter()
+                        .insert('path', 'g')
+                        .classed('link', true)
+                        .attr('d', linkGenerator)
+                        .style('fill', 'none')
+                        .style('stroke', 'black')
+                        .style('stroke-width', '2px');
                 });
-                return root;
-
-            },
-
-            buildTree = function () {
-                var svg = d3.select('svg');
-
-                var treeChart = d3.layout.tree();
-                treeChart
-                    .size([960, 540]);
-
-                d3.json('api2/EmployeeCoaches',
-                    function (error, data) {
-
-                        var linkGenerator = d3.svg.diagonal();
-                        var treeData = assembleTreeObject(data);
-                        var x = treeChart(treeData);
-
-                        d3.select('svg')
-                            .append('g')
-                            .attr('id', 'treeG')
-                            .selectAll('g')
-                            .data(x)
-                            .enter()
-                            .append('g')
-                            .attr('class', 'node')
-                            .attr('transform', function(d) {
-                                return 'translate(' + d.x + ',' + d.y + ')';
-                            });
-
-                        d3.selectAll('g.node')
-                            .append('circle')
-                            .attr('r', 6);
-
-                        var links = treeChart.links(x);
-
-                        d3.select('#treeG')
-                            .selectAll('path')
-                            .data(links)
-                            .enter()
-                            .insert('path', 'g')
-                            .attr('d', linkGenerator)
-                            .style('fill', 'none')
-                            .style('stroke', 'black')
-                            .style('stroke-width', '2px');
-                    });
-            };
+        };
 
         $('document').ready(function () {
-            buildTree();
+            var svg = $('svg');
+            buildTree(svg.width(), svg.height());
         });
     </script>
 }
