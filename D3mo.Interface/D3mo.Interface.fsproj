@@ -42,8 +42,10 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="D3moReference.fs" />
+    <Compile Include="TimeRecord.fs" />
+    <Compile Include="ITimeRecordSet.fs" />
     <Compile Include="UserInfo.fs" />
-    <None Include="Script.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
