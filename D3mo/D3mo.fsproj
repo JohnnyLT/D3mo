@@ -137,6 +137,7 @@
     <Compile Include="Controllers\DataController.fs" />
     <Compile Include="Controllers\SvgControllers.fs" />
     <Compile Include="Controllers\EmployeeCoachesController.fs" />
+    <Compile Include="Controllers\LineChartsController.fs" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\BasicSvg\Index.cshtml" />
     <Content Include="Views\CompanyTree\Index.cshtml" />
@@ -145,6 +146,7 @@
     <Content Include="Views\DemoSelection\Index.cshtml" />
     <Content Include="Views\DemoSelectAll\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\LineCharts\Index.cshtml" />
     <Content Include="Views\RandomUsers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
