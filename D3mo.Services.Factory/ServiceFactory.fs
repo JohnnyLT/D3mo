@@ -9,3 +9,7 @@ module Factory =
     let getEmployeeCoachesService source : IEmployeeCoach =
         match source with
         | Default -> new D3mo.Services.Default.DefaultEmployeeCoaches() :> _
+
+    let getTimeRecordSet source : ITimeRecordSet =
+        match source with
+        | Default -> new D3mo.Services.Default.DefaultTimeRecordSet() :> _

@@ -14,8 +14,10 @@ type DefaultTimeRecordSet() =
 
         query {
             for r in timeRecords.Rows do
-            select (r.Id, r.Date, r.Hours, D3moReference(r.ProjectId, r.ProjectName), D3moReference(r.TaskId, r.TaskName))
-        }
-        |> Seq.map (fun (id,date,hours,projRef,taskRef) -> 2)
+            select (r.Id, r.Date, (double)r.Hours, D3moReference(r.ProjectId, r.ProjectName), D3moReference(r.TaskId, r.TaskName)) }
+        |> Seq.map (fun (id,date,hours,projRef,taskRef) -> new TimeRecord(id,date,hours, projRef, taskRef))
+        |> Seq.toList
 
-    member __.X = 1
+    interface ITimeRecordSet with
+        member __.GetRecords() = 
+            new List<TimeRecord>(readData) :> _
