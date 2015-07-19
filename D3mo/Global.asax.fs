@@ -66,6 +66,18 @@ type Global() =
             { controller = "Home"; action = "Index"; id = UrlParameter.Optional } // Parameter defaults
         ) |> ignore
 
+        routes.MapRoute(
+            "GeoJson",
+            "Mapping/GeoJSON/{id}",
+            { controller = "Mapping"; action = "GeoJson"; id = UrlParameter.Optional }
+        ) |> ignore
+
+        routes.MapRoute(
+            "US",
+            "Mapping/US/{id}",
+            { controller = "Mapping"; action = "UsMap"; id = UrlParameter.Optional }
+        ) |> ignore
+
     member x.Application_Start() =
         AreaRegistration.RegisterAllAreas()
         GlobalConfiguration.Configure(Action<_> Global.RegisterWebApi)

@@ -121,6 +121,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Content\gz_2010_us_040_00_500k.json" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -129,15 +130,16 @@
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.svg" />
     <None Include="fonts\glyphicons-halflings-regular.eot" />
-    <Compile Include="Controllers\HomeController.fs" />
-    <Compile Include="Controllers\ValuesController.fs" />
-    <Compile Include="Controllers\DemoSelectionController.fs" />
-    <Compile Include="Controllers\Demo01Controller.fs" />
-    <Compile Include="Controllers\PeopleController.fs" />
     <Compile Include="Controllers\DataController.fs" />
-    <Compile Include="Controllers\SvgControllers.fs" />
+    <Compile Include="Controllers\Demo01Controller.fs" />
+    <Compile Include="Controllers\DemoSelectionController.fs" />
     <Compile Include="Controllers\EmployeeCoachesController.fs" />
+    <Compile Include="Controllers\HomeController.fs" />
     <Compile Include="Controllers\LineChartsController.fs" />
+    <Compile Include="Controllers\MappingController.fs" />
+    <Compile Include="Controllers\PeopleController.fs" />
+    <Compile Include="Controllers\SvgControllers.fs" />
+    <Compile Include="Controllers\ValuesController.fs" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\BasicSvg\Index.cshtml" />
     <Content Include="Views\CompanyTree\Index.cshtml" />
@@ -147,17 +149,21 @@
     <Content Include="Views\DemoSelectAll\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\LineCharts\Index.cshtml" />
+    <Content Include="Views\Mapping\GeoJson.cshtml" />
     <Content Include="Views\RandomUsers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Compile Include="Global.asax.fs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="packages.config" />
     <Content Include="readme.txt" />
+    <Content Include="Views\Mapping\US.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">

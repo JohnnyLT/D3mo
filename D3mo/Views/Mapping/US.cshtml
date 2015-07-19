@@ -1,0 +1,162 @@
+﻿@section localStyles
+{
+    <style type="text/css">
+        svg {
+            border-radius: 5px;
+            width: 100%;
+            height: 750px;
+        }
+    </style>
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <svg></svg>
+    </div>
+</div>
+<br />
+
+@section scripts
+{
+    <script type="text/javascript">
+        var populationByState = [
+                { state: 'California', population: 37253956 },
+                { state: 'Texas', population: 25145561 },
+                { state: 'New York', population: 19378102 },
+                { state: 'Florida', population: 18801310 },
+                { state: 'Illinois', population: 12830632 },
+                { state: 'Pennsylvania', population: 12702379 },
+                { state: 'Ohio', population: 11536504 },
+                { state: 'Michigan', population: 9883640 },
+                { state: 'Georgia', population: 9687653 },
+                { state: 'North Carolina', population: 9535483 },
+                { state: 'New Jersey', population: 8791894 },
+                { state: 'Virginia', population: 8001024 },
+                { state: 'Washington', population: 6724540 },
+                { state: 'Massachusetts', population: 6547629 },
+                { state: 'Indiana', population: 6483802 },
+                { state: 'Arizona', population: 6392017 },
+                { state: 'Tennessee', population: 6346105 },
+                { state: 'Missouri', population: 5988927 },
+                { state: 'Maryland', population: 5773552 },
+                { state: 'Wisconsin', population: 5686986 },
+                { state: 'Minnesota', population: 5303925 },
+                { state: 'Colorado', population: 5029196 },
+                { state: 'Alabama', population: 4779736 },
+                { state: 'South Carolina', population: 4625364 },
+                { state: 'Louisiana', population: 4533372 },
+                { state: 'Kentucky', population: 4339367 },
+                { state: 'Oregon', population: 3831074 },
+                { state: 'Oklahoma', population: 3751351 },
+                { state: 'Connecticut', population: 3574097 },
+                { state: 'Iowa', population: 3046355 },
+                { state: 'Mississippi', population: 2967297 },
+                { state: 'Arkansas', population: 2915918 },
+                { state: 'Kansas', population: 2853118 },
+                { state: 'Utah', population: 2763885 },
+                { state: 'Nevada', population: 2700551 },
+                { state: 'New Mexico', population: 2059179 },
+                { state: 'West Virginia', population: 1852994 },
+                { state: 'Nebraska', population: 1826341 },
+                { state: 'Idaho', population: 1567582 },
+                { state: 'Hawaii', population: 1360301 },
+                { state: 'Maine', population: 1328361 },
+                { state: 'New Hampshire', population: 1316470 },
+                { state: 'Rhode Island', population: 1052567 },
+                { state: 'Montana', population: 989415 },
+                { state: 'Delaware', population: 897934 },
+                { state: 'South Dakota', population: 814180 },
+                { state: 'Alaska', population: 710231 },
+                { state: 'North Dakota', population: 672591 },
+                { state: 'Vermont', population: 625741 },
+                { state: 'Washington D. C.', population: 601723 },
+                { state: 'Wyoming', population: 563626 }
+            ],
+
+            rgbValues = [
+                'rgb(247,252,240)',
+                'rgb(224,243,219)',
+                'rgb(204,235,197)',
+                'rgb(168,221,181)',
+                'rgb(123,204,196)',
+                'rgb(78,179,211)',
+                'rgb(43,140,190)',
+                'rgb(8,104,172)',
+                'rgb(8,64,129)'
+            ];
+
+        function createArray(min, max, numSections) {
+            var r = [];
+            var dx = (max - min) / numSections;
+
+            for (var i = 0; i < numSections; i++) {
+                r.push(min + i * dx);
+            }
+            return r;
+        }
+
+        function displayUsMap(w, h) {
+            var path, projection, svg, color;
+
+            projection = d3.geo.albersUsa()
+                .translate([w / 2, h / 2])
+                .scale([1500]);
+
+            path = d3.geo.path().projection(projection);
+
+            svg = d3.select('svg');
+            svg.attr('viewBox', '0 0 ' + w + ' ' + h);
+
+            var xxxxx = createArray(
+                d3.min(populationByState, function (d) { return d.population; }),
+                d3.max(populationByState, function (d) { return d.population; }),
+                rgbValues.length);
+
+            color = d3.scale.linear()
+                .range(rgbValues)
+                .domain(createArray(
+                    d3.min(populationByState, function(d) { return d.population; }),
+                    d3.max(populationByState, function(d) { return d.population; }),
+                    rgbValues.length));
+
+            d3.json('/Content/gz_2010_us_040_00_500k.json', function(geoJson) {
+                var i, len;
+
+                populationByState.forEach(function(d) {
+                    var populationState = d.state;
+                    var population = d.population;
+
+                    for (i = 0, len = geoJson.features.length; i < len; i++) {
+                        var feature = geoJson.features[i];
+                        var usState = feature.properties.NAME;
+                        if (populationState === usState) {
+                            feature.properties.population = population;
+                            break;
+                        }
+                    }
+                });
+
+                svg.selectAll('path')
+                    .data(geoJson.features)
+                    .enter()
+                    .append('path')
+                    .attr('d', path)
+                    .style('fill', function(d) {
+                        var population = d.properties.population;
+                        if (population)
+                            return color(population);
+                        else
+                            return '#000000';
+                    })
+                    .style('stroke', '#aaaaaa');
+            });
+
+        }
+
+        $(document).ready(function() {
+            var svg = $('svg');
+            displayUsMap(svg.width(), svg.height());
+        });
+    </script>
+}

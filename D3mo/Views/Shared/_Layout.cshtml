@@ -50,6 +50,13 @@
                             <li>@Html.ActionLink("Tree", "Index", "CompanyTree", new { area = "" }, null)</li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">D3 Maps<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("GeoJSON", "GeoJson", "Mapping", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("US Map", "UsMap", "Mapping", new { area = "" }, null)</li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
