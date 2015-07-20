@@ -12,3 +12,4 @@ type MappingController() =
     member this.Index () = this.View()
     member this.GeoJson () = this.View("GeoJson")
     member this.UsMap () = this.View("US")
+    member this.ChoroplethUsMap () = this.View("ChoroplethUS")

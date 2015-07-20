@@ -78,6 +78,12 @@ type Global() =
             { controller = "Mapping"; action = "UsMap"; id = UrlParameter.Optional }
         ) |> ignore
 
+        routes.MapRoute(
+            "ChoroplethUS",
+            "Mapping/ChoroplethUS/{id}",
+            { controller = "Mapping"; action = "ChoroplethUs"; id = UrlParameter.Optional }
+        ) |> ignore
+
     member x.Application_Start() =
         AreaRegistration.RegisterAllAreas()
         GlobalConfiguration.Configure(Action<_> Global.RegisterWebApi)

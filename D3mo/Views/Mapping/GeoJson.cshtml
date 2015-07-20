@@ -1,3 +1,71 @@
-﻿<div class="jumbotron">
+﻿@section localStyles
+{
+    <style type="text/css">
+        code, pre {
+            font-size: 18px;
+        }
+    </style>
+}
+
+
+<div class="jumbotron">
     <h1>GeoJSON</h1>
+    <h3>A format for encoding a variety of geographic data structures.</h3>
+    <p>
+        <a class="btn btn-primary btn-lg" href="http://geojson.org/">GeoJSON.org</a>
+        <a class="btn btn-primary btn-lg" href="https://en.wikipedia.org/wiki/GeoJSON">Wikipedia</a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Stolen from Wikipedia</h2>
+        <pre>
+        <code>
+        {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point", 
+                        "coordinates": [102.0, 0.5]
+                    },
+                    "properties": {
+                        "prop0": "value0"
+                    }
+                },
+                { 
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "LineString",
+                        "coordinates": [
+                            [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
+                        ]
+                    },
+                    "properties": {
+                        "prop0": "value0",
+                        "prop1": 0.0
+                    }
+                },
+                { 
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
+                        ]
+                    },
+                    "properties": {
+                        "prop0": "value0",
+                        "prop1": {
+                            "this": "that"
+                        }
+                    }
+                }
+            ]
+        }
+            </code>
+        </pre>
+    </div>
 </div>
