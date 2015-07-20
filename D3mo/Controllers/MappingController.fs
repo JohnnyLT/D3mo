@@ -9,7 +9,8 @@ open System.Web.Mvc.Ajax
 
 type MappingController() =
     inherit Controller()
-    member this.Index () = this.View()
-    member this.GeoJson () = this.View("GeoJson")
-    member this.UsMap () = this.View("US")
     member this.ChoroplethUsMap () = this.View("ChoroplethUS")
+    member this.GeoJson () = this.View("GeoJson")
+    member this.Index () = this.View()
+    member this.SimplePolygon () = this.View("SimplePolygon")
+    member this.UsMap () = this.View("US")

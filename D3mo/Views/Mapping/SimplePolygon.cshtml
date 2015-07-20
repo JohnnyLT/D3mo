@@ -1,0 +1,54 @@
+﻿@section localStyles
+{
+    <style type="text/css">
+        svg {
+            border-radius: 5px;
+            width: 100%;
+            height: 750px;
+        }
+    </style>
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <svg></svg>
+    </div>
+</div>
+<br />
+
+@section scripts
+{
+    <script type="text/javascript">
+        function displayUsMap(w, h) {
+            var path = d3.geo.path(),
+                svg = d3.select('svg').attr('viewBox', '0 0 ' + w + ' ' + h),
+                geoJson = {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Polygon',
+                                'coordinates': [
+                                    [[100.0, 100.0], [200.0, 100.0], [200.0, 200.0], [100.0, 100.0]]
+                                ]
+                            },
+                            'properties': {}
+                        }
+                    ]
+                };
+
+            svg.selectAll('path')
+                .data(geoJson.features)
+                .enter()
+                .append('path')
+                .attr('d', path);
+        }
+
+        $(document).ready(function () {
+            var svg = $('svg');
+            displayUsMap(svg.width(), svg.height());
+        });
+    </script>
+}
