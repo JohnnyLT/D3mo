@@ -56,6 +56,11 @@
       <Project>{3b5d975a-c2ce-4091-9669-d16751cd25be}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\D3mo.Services.Default\D3mo.Services.Default.fsproj">
+      <Name>D3mo.Services.Default</Name>
+      <Project>{be5cd5f3-9a40-427b-86bf-cfce4d557d7f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\D3mo.Services.Factory\D3mo.Services.Factory.fsproj">
       <Name>D3mo.Services.Factory</Name>
       <Project>{aabb47a7-3346-4d8d-8177-cbe8b7eea832}</Project>
