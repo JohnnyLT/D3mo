@@ -13,4 +13,5 @@ type MappingController() =
     member this.GeoJson () = this.View("GeoJson")
     member this.Index () = this.View()
     member this.SimplePolygon () = this.View("SimplePolygon")
+    member this.SonomaInvoicing () = this.View("SonomaInvoicing")
     member this.UsMap () = this.View("US")

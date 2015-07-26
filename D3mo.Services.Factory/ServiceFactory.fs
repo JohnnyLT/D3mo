@@ -13,3 +13,7 @@ module Factory =
     let getTimeRecordSet source : ITimeRecordSet =
         match source with
         | Default -> new D3mo.Services.Default.DefaultTimeRecordSet() :> _
+
+    let getInvoiceSummaryService source : IInvoiceService =
+        match source with
+        | Default -> new Default.DefaultInvoiceService() :> _

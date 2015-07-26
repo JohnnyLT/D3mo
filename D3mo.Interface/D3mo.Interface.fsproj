@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="D3moReference.fs" />
+    <Compile Include="InvoiceSummary.fs" />
+    <Compile Include="IInvoiceService.fs" />
     <Compile Include="TimeRecord.fs" />
     <Compile Include="ITimeRecordSet.fs" />
     <Compile Include="UserInfo.fs" />

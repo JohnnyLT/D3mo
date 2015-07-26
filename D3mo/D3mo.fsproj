@@ -135,6 +135,7 @@
     <Compile Include="Controllers\DemoSelectionController.fs" />
     <Compile Include="Controllers\EmployeeCoachesController.fs" />
     <Compile Include="Controllers\HomeController.fs" />
+    <Compile Include="Controllers\InvoiceSummariesController.fs" />
     <Compile Include="Controllers\LineChartsController.fs" />
     <Compile Include="Controllers\MappingController.fs" />
     <Compile Include="Controllers\PeopleController.fs" />
