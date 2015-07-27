@@ -153,6 +153,7 @@
     <Content Include="Views\Mapping\ChoroplethUS.cshtml" />
     <Content Include="Views\Mapping\GeoJson.cshtml" />
     <Content Include="Views\Mapping\SimplePolygon.cshtml" />
+    <Content Include="Views\Mapping\SonomaInvoicing.cshtml" />
     <Content Include="Views\Mapping\US.cshtml" />
     <Content Include="Views\RandomUsers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

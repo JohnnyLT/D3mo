@@ -1,0 +1,127 @@
+﻿@section localStyles
+{
+    <style type="text/css">
+        svg {
+            border-radius: 5px;
+            width: 100%;
+            height: 750px;
+        }
+    </style>
+}
+
+
+<div class="row">
+    <div class="btn-group col-md-3 col-md-offset-9" role="group" aria-label="...">
+        <button id="total-invoices-button" type="button" class="btn btn-info inactive">Total</button>
+        <button id="twelve-month-invoices-button" type="button" class="btn btn-info active">Last 12 Months</button>
+    </div>
+    <div class="col-md-12">
+        <svg></svg>
+    </div>
+</div>
+<br />
+
+@section scripts
+{
+    <script type="text/javascript">
+        var rgbValues = [
+                'rgb(247,252,240)',
+                'rgb(224,243,219)',
+                'rgb(204,235,197)',
+                'rgb(168,221,181)',
+                'rgb(123,204,196)',
+                'rgb(78,179,211)',
+                'rgb(43,140,190)',
+                'rgb(8,104,172)',
+                'rgb(8,64,129)'
+            ];
+
+        function createArray(min, max, numSections) {
+            var r = [];
+            var dx = (max - min) / numSections;
+
+            for (var i = 0; i < numSections; i++) {
+                r.push(min + i * dx);
+            }
+            return r;
+        }
+
+
+
+        function attachButtonListeners() {
+
+            $('#twelve-month-invoices-button').click(function (elem) {
+                $(this).removeClass('active').addClass('inactive');
+                $('#total-invoices-button').removeClass('inactive').addClass('active');
+            });
+
+            $('#total-invoices-button').click(function (elem) {
+                $(this).removeClass('active').addClass('inactive');
+                $('#twelve-month-invoices-button').removeClass('inactive').addClass('active');
+            });
+        }
+
+        function displayUsMap(w, h) {
+            var path, projection, svg, color;
+
+            projection = d3.geo.albersUsa()
+                .translate([w / 2, h / 2])
+                .scale([1500]);
+
+            path = d3.geo.path().projection(projection);
+
+            svg = d3.select('svg');
+            svg.attr('viewBox', '0 0 ' + w + ' ' + h);
+
+            //color = d3.scale.linear()
+            //    .range(rgbValues)
+            //    .domain(createArray(
+            //        d3.min(populationByState, function(d) { return d.population; }),
+            //        d3.max(populationByState, function(d) { return d.population; }),
+            //        rgbValues.length));
+
+            d3.json('/Content/gz_2010_us_040_00_500k.json', function(geoJson) {
+                var i, len;
+
+                d3.json('/api2/InvoiceSummaries', function (error, data) {
+                    if (error) {
+                        console.log(error);
+                        var x = 1;
+                    }
+                });
+
+                //populationByState.forEach(function(d) {
+                //    var populationState = d.state;
+                //    var population = d.population;
+
+                //    for (i = 0, len = geoJson.features.length; i < len; i++) {
+                //        var feature = geoJson.features[i];
+                //        var usState = feature.properties.NAME;
+                //        if (populationState === usState) {
+                //            feature.properties.population = population;
+                //            break;
+                //        }
+                //    }
+                //});
+
+                svg.selectAll('path')
+                    .data(geoJson.features)
+                    .enter()
+                    .append('path')
+                    .attr('d', path)
+                    .style('fill', '#0000aa')
+                    .style('stroke', '#bbbbbb')
+                    .on('click', function (v) {
+                        console.log(v);
+                    });
+            });
+
+            attachButtonListeners();
+        }
+
+        $(document).ready(function() {
+            var svg = $('svg');
+            displayUsMap(svg.width(), svg.height());
+        });
+    </script>
+}
