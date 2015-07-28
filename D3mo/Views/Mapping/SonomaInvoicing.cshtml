@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="btn-group col-md-3 col-md-offset-9" role="group" aria-label="...">
-        <button id="total-invoices-button" type="button" class="btn btn-info inactive">Total</button>
+        <button id="total-invoices-button" type="button" class="btn btn-info disabled">Total</button>
         <button id="twelve-month-invoices-button" type="button" class="btn btn-info active">Last 12 Months</button>
     </div>
     <div class="col-md-12">
@@ -51,13 +51,13 @@
         function attachButtonListeners() {
 
             $('#twelve-month-invoices-button').click(function (elem) {
-                $(this).removeClass('active').addClass('inactive');
-                $('#total-invoices-button').removeClass('inactive').addClass('active');
+                $(this).removeClass('active').addClass('disabled');
+                $('#total-invoices-button').removeClass('disabled').addClass('active');
             });
 
             $('#total-invoices-button').click(function (elem) {
-                $(this).removeClass('active').addClass('inactive');
-                $('#twelve-month-invoices-button').removeClass('inactive').addClass('active');
+                $(this).removeClass('active').addClass('disabled');
+                $('#twelve-month-invoices-button').removeClass('disabled').addClass('active');
             });
         }
 
