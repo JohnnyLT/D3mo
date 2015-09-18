@@ -2,6 +2,6 @@
 
 open System
 
-type D3moReference(id : Guid, name : string) = 
+type ForeignKey(id : Guid, name : string) = 
     member this.Id = id
     member this.Name = name

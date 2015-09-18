@@ -42,7 +42,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D3moReference.fs" />
+    <Compile Include="ForeignKey.fs" />
     <Compile Include="InvoiceSummary.fs" />
     <Compile Include="IInvoiceService.fs" />
     <Compile Include="TimeRecord.fs" />

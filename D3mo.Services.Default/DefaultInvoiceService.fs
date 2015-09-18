@@ -14,7 +14,7 @@ type DefaultInvoiceService() =
 
         query {
             for r in invoiceRecords.Rows do
-            let location = new Invoice.Location(r.City, r.State, r.Country, double r.Latitude, double r.Longitude)
+            let location = new Invoice.Location (r.City, r.State, r.Country, double r.Latitude, double r.Longitude)
             let invoice = new Invoice.Invoice(r.TotalInvoices, r.LastYearInvoices)
             select (new Invoice.Summary(r.Id, r.Name, location, invoice))
         }

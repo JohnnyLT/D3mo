@@ -13,14 +13,3 @@ type EmployeeRelationship(employee : EmployeeInfo, coach : EmployeeInfo) =
 
 type IEmployeeCoach = 
    abstract member GetEmployeeCoaches : unit -> IEnumerable<EmployeeRelationship>
-
-//type TestEmployeeCoach() =        
-//    let employee = EmployeeInfo(Guid.NewGuid(), "John Trujillo")
-//    let coach = EmployeeInfo(Guid.NewGuid(), "Blake Scarlavai")
-//    let relationship = new EmployeeRelationship(employee,coach)
-//    let relationships = [|relationship|]
-//
-//    interface IEmployeeCoach with
-//
-//        member this.GetEmployeeCoaches() = 
-//            new List<EmployeeRelationship>(relationships) :> _
